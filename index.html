@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <title>Flex Wallpaper - Best Free 4K & HD Desktop Backgrounds</title>
-    <meta name="description" content="Discover and download high-quality 4K, HD wallpapers and background images for free. Explore the best collection of stunning visuals on Flex Wallpaper.">
-    <meta name="google-site-verification" content="awKs7Msj_NeJZLY-qvJYOPkEbbHBhDbTch23fVDVd-U" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexWallpaper - HD & 4K Wallpapers</title>
     
     <!-- Browser Tab Favicon (Flash Logo) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
@@ -88,7 +86,7 @@
             <!-- Hero Search Section -->
             <div class="text-center max-w-3xl mx-auto py-8 space-y-4">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-800/50 text-indigo-300 text-xs font-semibold mb-2">
-                    <i class="fa-solid fa-bolt text-yellow-400"></i> Instant Fast HD Downloads Enabled
+                    <i class="fa-solid fa-bolt text-yellow-400"></i> Showing 50 HD Wallpapers Per Page
                 </div>
                 <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
                     Discover Ultra HD & 4K Wallpapers
@@ -130,7 +128,7 @@
             <!-- Loading Spinner -->
             <div id="loading-spinner" class="hidden text-center py-20">
                 <i class="fa-solid fa-circle-notch fa-spin text-4xl text-indigo-500"></i>
-                <p class="text-slate-400 text-sm mt-3">Fetching high resolution wallpapers...</p>
+                <p class="text-slate-400 text-sm mt-3">Fetching 50 high resolution wallpapers...</p>
             </div>
 
             <!-- Wallpapers Grid -->
@@ -224,8 +222,8 @@
                 <ul class="list-disc list-inside space-y-2 text-slate-400">
                     <li>Dynamic API Integration powered by Unsplash</li>
                     <li>Instant Keyword & Category Search</li>
-                    <li>Pagination with Tab Title Updates</li>
-                    <li>Fast High-Speed Auto-Download to Device</li>
+                    <li>50 HD Wallpapers Per Page with Next/Prev Pagination</li>
+                    <li>Direct Auto-Download to Device</li>
                     <li>Fully Responsive Layout across Desktop, Tablet, and Mobile</li>
                 </ul>
             </div>
@@ -292,35 +290,8 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // API CONFIGURATION
+        // UNSPLASH API CONFIGURATION
         const UNSPLASH_ACCESS_KEY = 'ucUZBN7390KPdpxu_ZejBtf5EBLqn7qvyhbilpSi5k4';
-
-        // Expanded Multi-Page Backup Database (Ensures "Next Page" always loads DIFFERENT wallpapers)
-        const BACKUP_DATABASE = [
-            // Set 1 (Page 1)
-            { id: "b1", width: 3840, height: 2160, alt_description: "Futuristic Cyberpunk Neon Cityscape 4K", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1519501025264-65ba15a82390" }, tags: [{title: "cyberpunk"}, {title: "neon"}, {title: "desktop"}] },
-            { id: "b2", width: 3840, height: 2160, alt_description: "Majestic Mountain Peak Landscape Sunset", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b" }, tags: [{title: "nature"}, {title: "mountains"}, {title: "sunset"}] },
-            { id: "b3", width: 3840, height: 2160, alt_description: "Abstract Fluid Gradient Waves 4K HD", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1541701494587-cb58502866ab" }, tags: [{title: "abstract"}, {title: "minimalist"}] },
-            { id: "b4", width: 2160, height: 3840, alt_description: "Minimalist Forest Misty Pine Trees Mobile", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1448375240586-882707db888b" }, tags: [{title: "forest"}, {title: "mobile"}, {title: "nature"}] },
-            { id: "b5", width: 3840, height: 2160, alt_description: "Deep Space Cosmos Nebula & Starfield", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86" }, tags: [{title: "space"}, {title: "4k desktop"}] },
-            { id: "b6", width: 3840, height: 2160, alt_description: "Supercar Luxury Porsche Dark Aesthetic", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1503376780353-7e6692767b70" }, tags: [{title: "cars"}, {title: "dark"}] },
-
-            // Set 2 (Page 2)
-            { id: "b7", width: 3840, height: 2160, alt_description: "Tropical Beach Turquoise Ocean Sunset", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e" }, tags: [{title: "nature"}, {title: "beach"}, {title: "desktop"}] },
-            { id: "b8", width: 3840, height: 2160, alt_description: "Futuristic Tokyo Neon Alley Night View", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26" }, tags: [{title: "cyberpunk"}, {title: "tokyo"}, {title: "neon"}] },
-            { id: "b9", width: 3840, height: 2160, alt_description: "Northern Lights Aurora Borealis Sky", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7" }, tags: [{title: "nature"}, {title: "aurora"}, {title: "4k desktop"}] },
-            { id: "b10", width: 3840, height: 2160, alt_description: "Luxury Matte Black Sports Car 4K", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738" }, tags: [{title: "cars"}, {title: "desktop"}] },
-            { id: "b11", width: 3840, height: 2160, alt_description: "Fantasy Sunset Sky Anime Aesthetic", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1534447677768-be436bb09401" }, tags: [{title: "anime"}, {title: "sky"}, {title: "abstract"}] },
-            { id: "b12", width: 2160, height: 3840, alt_description: "Golden Gate Bridge Fog Sunset 4K", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29" }, tags: [{title: "mobile"}, {title: "city"}] },
-
-            // Set 3 (Page 3)
-            { id: "b13", width: 3840, height: 2160, alt_description: "Neon Synthwave Grid Sun Cyberpunk", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853" }, tags: [{title: "cyberpunk"}, {title: "retro"}] },
-            { id: "b14", width: 3840, height: 2160, alt_description: "Minimalist Desert Sand Dunes Sunset", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9" }, tags: [{title: "minimalist"}, {title: "nature"}] },
-            { id: "b15", width: 3840, height: 2160, alt_description: "Milky Way Galaxy Night Sky Nebula", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1451187580459-43490279c0fa" }, tags: [{title: "space"}, {title: "4k desktop"}] },
-            { id: "b16", width: 3840, height: 2160, alt_description: "Emerald Mountain Glacier Lake 4K", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05" }, tags: [{title: "nature"}, {title: "mountains"}] },
-            { id: "b17", width: 3840, height: 2160, alt_description: "Classic Vintage Mustang Dark Car", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd" }, tags: [{title: "cars"}, {title: "desktop"}] },
-            { id: "b18", width: 2160, height: 3840, alt_description: "Bioluminescent Cave Waterfall Mobile", user: { name: "Flex Collection", username: "nethum" }, urls: { small: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=600&auto=format&fit=crop&q=80", regular: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1920&auto=format&fit=crop&q=85", full: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=3840&auto=format&fit=crop&q=85", raw: "https://images.unsplash.com/photo-1518837695005-2083093ee35b" }, tags: [{title: "mobile"}, {title: "nature"}] }
-        ];
 
         // Memory State
         let currentPhotos = [];
@@ -364,51 +335,36 @@
             fetchPopularWallpapers(1);
         }
 
-        // Generate Fallback Set based on page number
-        function getPageFallback(page, query = '') {
-            let list = BACKUP_DATABASE;
-            if (query) {
-                const filtered = BACKUP_DATABASE.filter(p => 
-                    p.alt_description.toLowerCase().includes(query.toLowerCase()) || 
-                    p.tags.some(t => t.title.toLowerCase().includes(query.toLowerCase()))
-                );
-                if (filtered.length > 0) list = filtered;
-            }
-            
-            // Shift / Rotate photos per page number so each page has unique items
-            const offset = ((page - 1) * 3) % list.length;
-            const pagePhotos = [...list.slice(offset), ...list.slice(0, offset)];
-            return pagePhotos;
-        }
-
-        // Fetch Popular Wallpapers
+        // Fetch Popular Wallpapers (Loads 50 wallpapers per page using 2 parallel calls)
         async function fetchPopularWallpapers(page = 1) {
             showSpinner(true);
             galleryTitle.innerText = "Popular Wallpapers";
             updatePaginationUI(page);
 
             try {
-                const res = await fetch(`https://api.unsplash.com/photos?page=${page}&per_page=28&order_by=popular&client_id=${UNSPLASH_ACCESS_KEY}`);
+                // Calculate 2 sub-pages of 25 items to reach 50 items total
+                const pageA = (page - 1) * 2 + 1;
+                const pageB = (page - 1) * 2 + 2;
 
-                if (!res.ok) {
-                    currentPhotos = getPageFallback(page);
-                    renderWallpapers(currentPhotos);
-                    return;
-                }
+                const [resA, resB] = await Promise.all([
+                    fetch(`https://api.unsplash.com/photos?page=${pageA}&per_page=25&order_by=popular&client_id=${UNSPLASH_ACCESS_KEY}`),
+                    fetch(`https://api.unsplash.com/photos?page=${pageB}&per_page=25&order_by=popular&client_id=${UNSPLASH_ACCESS_KEY}`)
+                ]);
 
-                const data = await res.json();
-                currentPhotos = Array.isArray(data) && data.length > 0 ? data : getPageFallback(page);
+                const dataA = await resA.json();
+                const dataB = await resB.json();
+
+                currentPhotos = [...(Array.isArray(dataA) ? dataA : []), ...(Array.isArray(dataB) ? dataB : [])];
                 renderWallpapers(currentPhotos);
             } catch (error) {
-                console.warn("Using fallback gallery for page:", page);
-                currentPhotos = getPageFallback(page);
-                renderWallpapers(currentPhotos);
+                console.error("Error fetching wallpapers:", error);
+                grid.innerHTML = `<p class="col-span-full text-center text-red-400 py-10">Failed to load wallpapers. Please check your API key or network connection.</p>`;
             } finally {
                 showSpinner(false);
             }
         }
 
-        // Search Wallpapers
+        // Search Wallpapers (Loads 50 wallpapers per page using 2 parallel calls)
         async function searchQuery(query, page = 1) {
             showPage('home');
             if (query !== currentQuery) {
@@ -422,22 +378,25 @@
             updatePaginationUI(page);
 
             try {
-                const res = await fetch(`https://api.unsplash.com/search/photos?page=${page}&per_page=28&query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}`);
+                const pageA = (page - 1) * 2 + 1;
+                const pageB = (page - 1) * 2 + 2;
 
-                if (!res.ok) {
-                    currentPhotos = getPageFallback(page, query);
-                    renderWallpapers(currentPhotos);
-                    return;
-                }
+                const [resA, resB] = await Promise.all([
+                    fetch(`https://api.unsplash.com/search/photos?page=${pageA}&per_page=25&query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}`),
+                    fetch(`https://api.unsplash.com/search/photos?page=${pageB}&per_page=25&query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}`)
+                ]);
 
-                const data = await res.json();
-                const results = data.results || [];
-                currentPhotos = results.length > 0 ? results : getPageFallback(page, query);
+                const dataA = await resA.json();
+                const dataB = await resB.json();
+
+                const resultsA = dataA.results || [];
+                const resultsB = dataB.results || [];
+
+                currentPhotos = [...resultsA, ...resultsB];
                 renderWallpapers(currentPhotos);
             } catch (error) {
-                console.warn("Using fallback search gallery for query:", query);
-                currentPhotos = getPageFallback(page, query);
-                renderWallpapers(currentPhotos);
+                console.error("Error searching wallpapers:", error);
+                grid.innerHTML = `<p class="col-span-full text-center text-red-400 py-10">Error loading search results.</p>`;
             } finally {
                 showSpinner(false);
             }
@@ -458,19 +417,9 @@
             document.getElementById('gallery-header').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Update Browser Tab Title and Pagination UI
         function updatePaginationUI(page) {
             currentPageNum.innerText = page;
             prevPageBtn.disabled = (page <= 1);
-
-            // Update Tab Title dynamically
-            if (currentQuery) {
-                document.title = `Flex Wallpaper - ${currentQuery} (Page ${page})`;
-            } else if (page > 1) {
-                document.title = `Flex Wallpaper - Page ${page}`;
-            } else {
-                document.title = `Flex Wallpaper - Best Free 4K & HD Desktop Backgrounds`;
-            }
         }
 
         // Form Submit Handler
@@ -488,11 +437,7 @@
             resultCount.innerText = `${photos.length} items loaded (Page ${currentPage})`;
 
             if (!photos || photos.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-12 text-slate-500">
-                        <i class="fa-solid fa-face-frown text-3xl mb-2 block"></i>
-                        No wallpapers found for "${currentQuery}". Try searching another keyword!
-                    </div>`;
+                grid.innerHTML = `<p class="col-span-full text-center text-slate-500 py-10">No wallpapers found. Try searching another keyword!</p>`;
                 return;
             }
 
@@ -529,14 +474,12 @@
 
             selectedPhoto = photo;
 
-            // Update DOM Elements & Tab Title
+            // Update DOM Elements
             document.getElementById('detail-img').src = photo.urls.regular;
             document.getElementById('detail-title').innerText = photo.alt_description || photo.description || 'Ultra HD Wallpaper';
             document.getElementById('detail-author').innerText = `Photographer: ${photo.user.name} (@${photo.user.username})`;
             document.getElementById('detail-resolution').innerText = `${photo.width} x ${photo.height}`;
             
-            document.title = `Download - ${photo.alt_description || 'Flex Wallpaper HD'}`;
-
             // Reset download button text
             document.getElementById('download-btn-text').innerText = "Download High Resolution";
 
@@ -563,7 +506,7 @@
             showPage('download');
         }
 
-        // SUPER FAST AUTO DOWNLOAD FUNCTIONALITY
+        // AUTO DOWNLOAD FUNCTIONALITY (Direct Save to Device)
         async function triggerAutoDownload() {
             if (!selectedPhoto) return;
 
@@ -575,16 +518,12 @@
             downloadBtn.disabled = true;
 
             try {
-                // High Quality 4K/2K Optimized Stream (~1.5MB instead of 25MB) for Instant Speed
-                const fastDownloadUrl = selectedPhoto.urls.raw 
-                    ? `${selectedPhoto.urls.raw}&w=2560&q=85&fm=jpg` 
-                    : selectedPhoto.urls.regular;
-
-                const imageResponse = await fetch(fastDownloadUrl);
+                // Fetch image stream as Blob for direct forced browser download
+                const imageResponse = await fetch(selectedPhoto.urls.full);
                 const imageBlob = await imageResponse.blob();
                 const imageBlobUrl = URL.createObjectURL(imageBlob);
 
-                // Force Auto Direct Download
+                // Create virtual anchor tag to force download
                 const tempLink = document.createElement('a');
                 tempLink.href = imageBlobUrl;
                 tempLink.download = `FlexWallpaper-${selectedPhoto.id}.jpg`;
@@ -596,14 +535,14 @@
                 URL.revokeObjectURL(imageBlobUrl);
                 btnText.innerText = "Downloaded Successfully!";
             } catch (error) {
-                console.error("Fast download error, falling back:", error);
+                console.error("Direct blob download error, falling back to window open:", error);
                 window.open(selectedPhoto.urls.full, '_blank');
                 btnText.innerText = originalText;
             } finally {
                 setTimeout(() => {
                     btnText.innerText = originalText;
                     downloadBtn.disabled = false;
-                }, 2000);
+                }, 2500);
             }
         }
 

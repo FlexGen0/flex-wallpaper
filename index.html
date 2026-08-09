@@ -2,11 +2,10 @@
 <html lang="en" class="dark">
 <head>
     <title>Flex Wallpaper - Best Free 4K & HD Desktop Backgrounds</title>
-<meta name="description" content="Discover and download high-quality 4K, HD wallpapers and background images for free. Explore the best collection of stunning visuals on Flex Wallpaper.">
+    <meta name="description" content="Discover and download high-quality 4K, HD wallpapers and background images for free. Explore the best collection of stunning visuals on Flex Wallpaper.">
     <meta name="google-site-verification" content="awKs7Msj_NeJZLY-qvJYOPkEbbHBhDbTch23fVDVd-U" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlexWallpaper - HD & 4K Wallpapers</title>
     
     <!-- Browser Tab Favicon (Flash Logo) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
@@ -89,7 +88,7 @@
             <!-- Hero Search Section -->
             <div class="text-center max-w-3xl mx-auto py-8 space-y-4">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-800/50 text-indigo-300 text-xs font-semibold mb-2">
-                    <i class="fa-solid fa-bolt text-yellow-400"></i> Showing 50 HD Wallpapers Per Page
+                    <i class="fa-solid fa-bolt text-yellow-400"></i> Instant Fast HD Downloads Enabled
                 </div>
                 <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
                     Discover Ultra HD & 4K Wallpapers
@@ -131,7 +130,7 @@
             <!-- Loading Spinner -->
             <div id="loading-spinner" class="hidden text-center py-20">
                 <i class="fa-solid fa-circle-notch fa-spin text-4xl text-indigo-500"></i>
-                <p class="text-slate-400 text-sm mt-3">Fetching 50 high resolution wallpapers...</p>
+                <p class="text-slate-400 text-sm mt-3">Fetching high resolution wallpapers...</p>
             </div>
 
             <!-- Wallpapers Grid -->
@@ -225,8 +224,8 @@
                 <ul class="list-disc list-inside space-y-2 text-slate-400">
                     <li>Dynamic API Integration powered by Unsplash</li>
                     <li>Instant Keyword & Category Search</li>
-                    <li>50 HD Wallpapers Per Page with Next/Prev Pagination</li>
-                    <li>Direct Auto-Download to Device</li>
+                    <li>Pagination with Tab Title Updates</li>
+                    <li>Fast High-Speed Auto-Download to Device</li>
                     <li>Fully Responsive Layout across Desktop, Tablet, and Mobile</li>
                 </ul>
             </div>
@@ -338,36 +337,41 @@
             fetchPopularWallpapers(1);
         }
 
-        // Fetch Popular Wallpapers (Loads 50 wallpapers per page using 2 parallel calls)
+        // Fetch Popular Wallpapers
         async function fetchPopularWallpapers(page = 1) {
             showSpinner(true);
             galleryTitle.innerText = "Popular Wallpapers";
             updatePaginationUI(page);
 
             try {
-                // Calculate 2 sub-pages of 25 items to reach 50 items total
-                const pageA = (page - 1) * 2 + 1;
-                const pageB = (page - 1) * 2 + 2;
+                const res = await fetch(`https://api.unsplash.com/photos?page=${page}&per_page=28&order_by=popular&client_id=${UNSPLASH_ACCESS_KEY}`);
 
-                const [resA, resB] = await Promise.all([
-                    fetch(`https://api.unsplash.com/photos?page=${pageA}&per_page=25&order_by=popular&client_id=${UNSPLASH_ACCESS_KEY}`),
-                    fetch(`https://api.unsplash.com/photos?page=${pageB}&per_page=25&order_by=popular&client_id=${UNSPLASH_ACCESS_KEY}`)
-                ]);
+                if (!res.ok) {
+                    if (res.status === 429) {
+                        throw new Error("Unsplash API Rate Limit Exceeded (50 requests/hour limit reached). Please try again after a few minutes.");
+                    } else {
+                        throw new Error(`API Error (${res.status}): ${res.statusText}`);
+                    }
+                }
 
-                const dataA = await resA.json();
-                const dataB = await resB.json();
-
-                currentPhotos = [...(Array.isArray(dataA) ? dataA : []), ...(Array.isArray(dataB) ? dataB : [])];
+                const data = await res.json();
+                currentPhotos = Array.isArray(data) ? data : [];
                 renderWallpapers(currentPhotos);
             } catch (error) {
                 console.error("Error fetching wallpapers:", error);
-                grid.innerHTML = `<p class="col-span-full text-center text-red-400 py-10">Failed to load wallpapers. Please check your API key or network connection.</p>`;
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 px-4 bg-slate-900 border border-slate-800 rounded-2xl space-y-3">
+                        <i class="fa-solid fa-triangle-exclamation text-yellow-400 text-3xl"></i>
+                        <p class="text-slate-200 font-semibold">${error.message || 'Failed to load wallpapers.'}</p>
+                        <p class="text-xs text-slate-500">Unsplash Free API limit is 50 requests/hour. Please try again shortly.</p>
+                        <button onclick="fetchPopularWallpapers(1)" class="mt-2 text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl transition-colors">Retry</button>
+                    </div>`;
             } finally {
                 showSpinner(false);
             }
         }
 
-        // Search Wallpapers (Loads 50 wallpapers per page using 2 parallel calls)
+        // Search Wallpapers
         async function searchQuery(query, page = 1) {
             showPage('home');
             if (query !== currentQuery) {
@@ -381,25 +385,30 @@
             updatePaginationUI(page);
 
             try {
-                const pageA = (page - 1) * 2 + 1;
-                const pageB = (page - 1) * 2 + 2;
+                const res = await fetch(`https://api.unsplash.com/search/photos?page=${page}&per_page=28&query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}`);
 
-                const [resA, resB] = await Promise.all([
-                    fetch(`https://api.unsplash.com/search/photos?page=${pageA}&per_page=25&query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}`),
-                    fetch(`https://api.unsplash.com/search/photos?page=${pageB}&per_page=25&query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}`)
-                ]);
+                if (!res.ok) {
+                    if (res.status === 429) {
+                        throw new Error("API Rate Limit Exceeded (50 requests/hour limit reached). Please wait a few minutes before searching again.");
+                    } else if (res.status === 403 || res.status === 401) {
+                        throw new Error("API Key issue or blocked request. Please verify your API Key.");
+                    } else {
+                        throw new Error(`API Error (${res.status}): ${res.statusText}`);
+                    }
+                }
 
-                const dataA = await resA.json();
-                const dataB = await resB.json();
-
-                const resultsA = dataA.results || [];
-                const resultsB = dataB.results || [];
-
-                currentPhotos = [...resultsA, ...resultsB];
+                const data = await res.json();
+                currentPhotos = data.results || [];
                 renderWallpapers(currentPhotos);
             } catch (error) {
                 console.error("Error searching wallpapers:", error);
-                grid.innerHTML = `<p class="col-span-full text-center text-red-400 py-10">Error loading search results.</p>`;
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 px-4 bg-slate-900 border border-slate-800 rounded-2xl space-y-3">
+                        <i class="fa-solid fa-triangle-exclamation text-yellow-400 text-3xl"></i>
+                        <p class="text-slate-200 font-semibold">${error.message || 'Error loading search results.'}</p>
+                        <p class="text-xs text-slate-500">If you searched multiple times, Unsplash Free API hourly limit (50 req/hr) might be reached.</p>
+                        <button onclick="showHome()" class="mt-2 text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl transition-colors">Back to Popular</button>
+                    </div>`;
             } finally {
                 showSpinner(false);
             }
@@ -420,9 +429,19 @@
             document.getElementById('gallery-header').scrollIntoView({ behavior: 'smooth' });
         }
 
+        // Update Browser Tab Title and Pagination UI
         function updatePaginationUI(page) {
             currentPageNum.innerText = page;
             prevPageBtn.disabled = (page <= 1);
+
+            // Update Tab Title dynamically
+            if (currentQuery) {
+                document.title = `Flex Wallpaper - ${currentQuery} (Page ${page})`;
+            } else if (page > 1) {
+                document.title = `Flex Wallpaper - Page ${page}`;
+            } else {
+                document.title = `Flex Wallpaper - Best Free 4K & HD Desktop Backgrounds`;
+            }
         }
 
         // Form Submit Handler
@@ -440,7 +459,11 @@
             resultCount.innerText = `${photos.length} items loaded (Page ${currentPage})`;
 
             if (!photos || photos.length === 0) {
-                grid.innerHTML = `<p class="col-span-full text-center text-slate-500 py-10">No wallpapers found. Try searching another keyword!</p>`;
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-slate-500">
+                        <i class="fa-solid fa-face-frown text-3xl mb-2 block"></i>
+                        No wallpapers found for "${currentQuery}". Try searching another keyword!
+                    </div>`;
                 return;
             }
 
@@ -477,12 +500,14 @@
 
             selectedPhoto = photo;
 
-            // Update DOM Elements
+            // Update DOM Elements & Tab Title
             document.getElementById('detail-img').src = photo.urls.regular;
             document.getElementById('detail-title').innerText = photo.alt_description || photo.description || 'Ultra HD Wallpaper';
             document.getElementById('detail-author').innerText = `Photographer: ${photo.user.name} (@${photo.user.username})`;
             document.getElementById('detail-resolution').innerText = `${photo.width} x ${photo.height}`;
             
+            document.title = `Download - ${photo.alt_description || 'Flex Wallpaper HD'}`;
+
             // Reset download button text
             document.getElementById('download-btn-text').innerText = "Download High Resolution";
 
@@ -509,7 +534,7 @@
             showPage('download');
         }
 
-        // AUTO DOWNLOAD FUNCTIONALITY (Direct Save to Device)
+        // SUPER FAST AUTO DOWNLOAD FUNCTIONALITY
         async function triggerAutoDownload() {
             if (!selectedPhoto) return;
 
@@ -521,12 +546,16 @@
             downloadBtn.disabled = true;
 
             try {
-                // Fetch image stream as Blob for direct forced browser download
-                const imageResponse = await fetch(selectedPhoto.urls.full);
+                // High Quality 4K/2K Optimized Stream (~1.5MB instead of 25MB) for 10x Instant Speed
+                const fastDownloadUrl = selectedPhoto.urls.raw 
+                    ? `${selectedPhoto.urls.raw}&w=2560&q=85&fm=jpg` 
+                    : selectedPhoto.urls.regular;
+
+                const imageResponse = await fetch(fastDownloadUrl);
                 const imageBlob = await imageResponse.blob();
                 const imageBlobUrl = URL.createObjectURL(imageBlob);
 
-                // Create virtual anchor tag to force download
+                // Force Auto Direct Download
                 const tempLink = document.createElement('a');
                 tempLink.href = imageBlobUrl;
                 tempLink.download = `FlexWallpaper-${selectedPhoto.id}.jpg`;
@@ -538,14 +567,14 @@
                 URL.revokeObjectURL(imageBlobUrl);
                 btnText.innerText = "Downloaded Successfully!";
             } catch (error) {
-                console.error("Direct blob download error, falling back to window open:", error);
+                console.error("Fast download error, falling back:", error);
                 window.open(selectedPhoto.urls.full, '_blank');
                 btnText.innerText = originalText;
             } finally {
                 setTimeout(() => {
                     btnText.innerText = originalText;
                     downloadBtn.disabled = false;
-                }, 2500);
+                }, 2000);
             }
         }
 

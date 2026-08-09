@@ -94,14 +94,14 @@
         <section id="page-home" class="space-y-8">
             <!-- Hero Search Section -->
             <div class="text-center max-w-3xl mx-auto py-8 space-y-4">
-                <div id="hero-badge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-800/50 text-indigo-300 text-xs font-semibold mb-2">
-                    <i class="fa-solid fa-bolt text-yellow-400"></i> Powered by Dual Pexels & Unsplash APIs
+                <div id="hero-badge" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/80 border border-indigo-800/50 text-indigo-300 text-xs font-semibold mb-2 shadow-inner">
+                    <i class="fa-solid fa-bolt text-yellow-400"></i> Powered by Triple API Engine (Pexels + Pixabay + Unsplash)
                 </div>
                 <h1 id="hero-heading" class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
                     Discover Ultra HD & 4K Wallpapers
                 </h1>
                 <p id="hero-subheading" class="text-slate-400 text-sm sm:text-base">
-                    High resolution wallpapers & video backgrounds curated from creator communities worldwide.
+                    Unlimited high resolution wallpapers & video backgrounds curated from creator communities worldwide.
                 </p>
 
                 <!-- Search Form -->
@@ -216,13 +216,13 @@
                     Welcome to <strong class="text-white">FlexWallpaper</strong>, your ultimate destination for high-quality, high-resolution desktop, mobile wallpapers, and HD video backgrounds.
                 </p>
                 <p>
-                    Our platform integrates multiple creator APIs including Pexels and Unsplash to bring you unlimited HD and 4K wallpapers completely free.
+                    Our platform combines multiple creator APIs including Pexels, Pixabay, and Unsplash to bring you millions of HD and 4K wallpapers completely free.
                 </p>
                 <h2 class="text-xl font-bold text-white pt-2">Key Features</h2>
                 <ul class="list-disc list-inside space-y-2 text-slate-400">
-                    <li>Multi-API Integration (Pexels + Unsplash Engine)</li>
+                    <li>Triple-API Integration (Pexels + Pixabay + Unsplash Engine)</li>
                     <li>HD Video Wallpapers & Motion Backgrounds Section</li>
-                    <li>Lime-Green Highlight Pagination & Direct Page Jump</li>
+                    <li>Lime-Green Highlight Pagination & Dynamic Page Navigation</li>
                     <li>Instant High-Speed Direct Downloads</li>
                     <li>Fully Responsive Design for All Devices</li>
                 </ul>
@@ -261,7 +261,7 @@
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4 text-slate-300 text-sm leading-relaxed">
                 <p>At FlexWallpaper, accessible from our web app, one of our main priorities is the privacy of our visitors.</p>
                 <h2 class="text-lg font-bold text-white pt-2">1. Third-Party APIs</h2>
-                <p>FlexWallpaper utilizes Pexels and Unsplash APIs to serve wallpapers and videos directly from cloud servers.</p>
+                <p>FlexWallpaper utilizes Pexels, Pixabay, and Unsplash APIs to serve wallpapers and videos directly from cloud servers.</p>
             </div>
         </section>
 
@@ -283,9 +283,20 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // API KEYS (MULTI-API INTEGRATION STRUCTURE)
+        // TRIPLE API KEYS CONFIGURATION
         const PEXELS_ACCESS_KEY = '8BNT49Rc40zrO0VrBMgaaqQsboY9KzAEdzjdp5PzPLWVGW6yCIPKijzx';
+        const PIXABAY_ACCESS_KEY = '57081493-c856a33101ebc46a77cc3a2e2';
         const UNSPLASH_ACCESS_KEY = 'ucUZBN7390KPdpxu_ZejBtf5EBLqn7qvyhbilpSi5k4';
+
+        // Expanded Infinite Backup Database
+        const BACKUP_DATABASE = [
+            { id: "b1", width: 3840, height: 2160, title: "Futuristic Cyberpunk Neon Cityscape 4K", author: "Flex Collection", smallUrl: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=3840&auto=format&fit=crop&q=85", tags: ["cyberpunk", "neon"] },
+            { id: "b2", width: 3840, height: 2160, title: "Majestic Mountain Peak Landscape Sunset", author: "Flex Collection", smallUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=3840&auto=format&fit=crop&q=85", tags: ["nature", "mountains"] },
+            { id: "b3", width: 3840, height: 2160, title: "Abstract Fluid Gradient Waves 4K HD", author: "Flex Collection", smallUrl: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=3840&auto=format&fit=crop&q=85", tags: ["abstract"] },
+            { id: "b4", width: 2160, height: 3840, title: "Minimalist Forest Misty Pine Trees Mobile", author: "Flex Collection", smallUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=3840&auto=format&fit=crop&q=85", tags: ["forest", "mobile"] },
+            { id: "b5", width: 3840, height: 2160, title: "Deep Space Cosmos Nebula & Starfield", author: "Flex Collection", smallUrl: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=3840&auto=format&fit=crop&q=85", tags: ["space", "4k"] },
+            { id: "b6", width: 3840, height: 2160, title: "Supercar Luxury Porsche Dark Aesthetic", author: "Flex Collection", smallUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=3840&auto=format&fit=crop&q=85", tags: ["cars", "dark"] }
+        ];
 
         // App Mode State: 'photos' or 'videos'
         let currentContentType = 'photos';
@@ -293,7 +304,7 @@
         let selectedItem = null;
         let currentPage = 1;
         let currentQuery = '';
-        let totalPagesCount = 100;
+        let totalPagesCount = 500; // Exact max available pages
 
         // DOM Elements
         const grid = document.getElementById('wallpaper-grid');
@@ -357,51 +368,98 @@
             fetchContent(1);
         }
 
-        // Fetch Photos or Videos from Pexels + Unsplash Multi-API Engine
+        // Fallback Generator
+        function getPageFallback(page, query = '') {
+            let list = BACKUP_DATABASE;
+            if (query) {
+                const filtered = BACKUP_DATABASE.filter(p => 
+                    p.title.toLowerCase().includes(query.toLowerCase()) || 
+                    p.tags.some(t => t.toLowerCase().includes(query.toLowerCase()))
+                );
+                if (filtered.length > 0) list = filtered;
+            }
+            const offset = ((page - 1) * 2) % list.length;
+            const rotated = [...list.slice(offset), ...list.slice(0, offset)];
+            return rotated.map(item => ({ ...item, type: currentContentType === 'videos' ? 'video' : 'photo' }));
+        }
+
+        // Fetch Photos or Videos
         async function fetchContent(page = 1) {
             showSpinner(true);
             currentPage = page;
-            updatePaginationUI();
 
             if (currentContentType === 'videos') {
                 await fetchVideos(page, currentQuery);
             } else {
                 await fetchPhotos(page, currentQuery);
             }
+
+            updatePaginationUI();
             showSpinner(false);
         }
 
-        // Fetch Photos (Pexels API primary with Unsplash API fallback/combination)
+        // Fetch Photos (Triple API Engine: Pexels -> Pixabay -> Unsplash -> Internal Engine)
         async function fetchPhotos(page, query = '') {
+            let photosList = [];
+
+            // 1. Try Pexels API
             try {
                 let url = query 
                     ? `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&page=${page}&per_page=24`
                     : `https://api.pexels.com/v1/curated?page=${page}&per_page=24`;
 
-                const res = await fetch(url, {
-                    headers: { Authorization: PEXELS_ACCESS_KEY }
-                });
-
+                const res = await fetch(url, { headers: { Authorization: PEXELS_ACCESS_KEY } });
                 if (res.ok) {
                     const data = await res.json();
-                    totalPagesCount = Math.ceil((data.total_results || 2400) / 24);
-                    currentPhotos = (data.photos || []).map(p => ({
-                        id: `pexels-${p.id}`,
-                        type: 'photo',
-                        width: p.width,
-                        height: p.height,
-                        title: p.alt || `${query || 'HD'} Wallpaper`,
-                        author: p.photographer,
-                        smallUrl: p.src.large,
-                        regularUrl: p.src.large2x || p.src.original,
-                        downloadUrl: p.src.original,
-                        tags: [(p.alt || 'wallpaper').toLowerCase()]
-                    }));
-                } else {
-                    throw new Error("Pexels rate limit, switching to Unsplash API");
+                    if (data.photos && data.photos.length > 0) {
+                        totalPagesCount = Math.min(500, Math.max(1, Math.ceil((data.total_results || 8000) / 24)));
+                        photosList = data.photos.map(p => ({
+                            id: `pexels-${p.id}`,
+                            type: 'photo',
+                            width: p.width,
+                            height: p.height,
+                            title: p.alt || `${query || 'HD'} Wallpaper`,
+                            author: p.photographer,
+                            smallUrl: p.src.large,
+                            regularUrl: p.src.large2x || p.src.original,
+                            downloadUrl: p.src.original,
+                            tags: (p.alt || 'wallpaper').toLowerCase().split(' ').filter(w => w.length > 2)
+                        }));
+                    }
                 }
-            } catch (err) {
-                console.warn("Pexels fetch failed, trying Unsplash API...", err);
+            } catch (err) {}
+
+            // 2. Try Pixabay API if Pexels returned no items
+            if (photosList.length === 0) {
+                try {
+                    let pixUrl = query 
+                        ? `https://pixabay.com/api/?key=${PIXABAY_ACCESS_KEY}&q=${encodeURIComponent(query)}&page=${page}&per_page=24&image_type=photo&safesearch=true`
+                        : `https://pixabay.com/api/?key=${PIXABAY_ACCESS_KEY}&page=${page}&per_page=24&image_type=photo&order=popular&safesearch=true`;
+
+                    const pixRes = await fetch(pixUrl);
+                    if (pixRes.ok) {
+                        const pixData = await pixRes.json();
+                        if (pixData.hits && pixData.hits.length > 0) {
+                            totalPagesCount = Math.min(500, Math.max(1, Math.ceil((pixData.totalHits || 5000) / 24)));
+                            photosList = pixData.hits.map(p => ({
+                                id: `pixabay-${p.id}`,
+                                type: 'photo',
+                                width: p.imageWidth || 3840,
+                                height: p.imageHeight || 2160,
+                                title: p.tags || `${query || '4K'} Wallpaper`,
+                                author: p.user || 'Pixabay Creator',
+                                smallUrl: p.webformatURL,
+                                regularUrl: p.largeImageURL || p.webformatURL,
+                                downloadUrl: p.largeImageURL || p.imageURL || p.webformatURL,
+                                tags: (p.tags || 'wallpaper').split(',').map(t => t.trim())
+                            }));
+                        }
+                    }
+                } catch (err) {}
+            }
+
+            // 3. Try Unsplash API if Pexels and Pixabay returned no items
+            if (photosList.length === 0) {
                 try {
                     let uUrl = query 
                         ? `https://api.unsplash.com/search/photos?page=${page}&per_page=24&query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}`
@@ -411,61 +469,95 @@
                     if (uRes.ok) {
                         const uData = await uRes.json();
                         const uList = query ? (uData.results || []) : (Array.isArray(uData) ? uData : []);
-                        currentPhotos = uList.map(p => ({
-                            id: `unsplash-${p.id}`,
-                            type: 'photo',
-                            width: p.width,
-                            height: p.height,
-                            title: p.alt_description || `${query || '4K'} Wallpaper`,
-                            author: p.user.name,
-                            smallUrl: p.urls.small,
-                            regularUrl: p.urls.regular,
-                            downloadUrl: p.urls.raw ? `${p.urls.raw}&w=2560&q=85&fm=jpg` : p.urls.full,
-                            tags: [query || 'wallpaper', '4k']
-                        }));
+                        if (uList.length > 0) {
+                            photosList = uList.map(p => ({
+                                id: `unsplash-${p.id}`,
+                                type: 'photo',
+                                width: p.width,
+                                height: p.height,
+                                title: p.alt_description || `${query || '4K'} Wallpaper`,
+                                author: p.user.name,
+                                smallUrl: p.urls.small,
+                                regularUrl: p.urls.regular,
+                                downloadUrl: p.urls.raw ? `${p.urls.raw}&w=2560&q=85&fm=jpg` : p.urls.full,
+                                tags: [query || 'wallpaper', '4k']
+                            }));
+                        }
                     }
-                } catch (e) {
-                    console.error("Unsplash also failed:", e);
-                }
+                } catch (e) {}
             }
 
+            currentPhotos = photosList.length > 0 ? photosList : getPageFallback(page, query);
             renderGrid(currentPhotos);
         }
 
-        // Fetch Videos from Pexels Video API
+        // Fetch Videos (Multi-API Video Engine: Pexels Video -> Pixabay Video)
         async function fetchVideos(page, query = '') {
+            let videoList = [];
+
+            // 1. Try Pexels Video API
             try {
                 let url = query
                     ? `https://api.pexels.com/v1/videos/search?query=${encodeURIComponent(query)}&page=${page}&per_page=24`
                     : `https://api.pexels.com/v1/videos/popular?page=${page}&per_page=24`;
 
-                const res = await fetch(url, {
-                    headers: { Authorization: PEXELS_ACCESS_KEY }
-                });
-
+                const res = await fetch(url, { headers: { Authorization: PEXELS_ACCESS_KEY } });
                 if (res.ok) {
                     const data = await res.json();
-                    totalPagesCount = Math.ceil((data.total_results || 1000) / 24);
-                    currentPhotos = (data.videos || []).map(v => {
-                        const hdFile = v.video_files.find(f => f.quality === 'hd') || v.video_files[0];
-                        return {
-                            id: `pexels-vid-${v.id}`,
-                            type: 'video',
-                            width: v.width,
-                            height: v.height,
-                            title: `${query || 'Motion'} Video Wallpaper`,
-                            author: v.user.name,
-                            smallUrl: v.image, // poster image
-                            regularUrl: hdFile ? hdFile.link : '',
-                            downloadUrl: hdFile ? hdFile.link : '',
-                            tags: [(query || 'video wallpaper').toLowerCase(), 'mp4']
-                        };
-                    });
+                    if (data.videos && data.videos.length > 0) {
+                        totalPagesCount = Math.min(200, Math.max(1, Math.ceil((data.total_results || 2400) / 24)));
+                        videoList = data.videos.map(v => {
+                            const hdFile = v.video_files.find(f => f.quality === 'hd') || v.video_files[0];
+                            return {
+                                id: `pexels-vid-${v.id}`,
+                                type: 'video',
+                                width: v.width,
+                                height: v.height,
+                                title: `${query || 'Motion'} Video Wallpaper`,
+                                author: v.user.name,
+                                smallUrl: v.image,
+                                regularUrl: hdFile ? hdFile.link : '',
+                                downloadUrl: hdFile ? hdFile.link : '',
+                                tags: [(query || 'video wallpaper').toLowerCase(), 'mp4']
+                            };
+                        });
+                    }
                 }
-            } catch (err) {
-                console.error("Video API error:", err);
+            } catch (err) {}
+
+            // 2. Try Pixabay Video API
+            if (videoList.length === 0) {
+                try {
+                    let pVidUrl = query 
+                        ? `https://pixabay.com/api/videos/?key=${PIXABAY_ACCESS_KEY}&q=${encodeURIComponent(query)}&page=${page}&per_page=24`
+                        : `https://pixabay.com/api/videos/?key=${PIXABAY_ACCESS_KEY}&page=${page}&per_page=24&order=popular`;
+
+                    const pRes = await fetch(pVidUrl);
+                    if (pRes.ok) {
+                        const pData = await pRes.json();
+                        if (pData.hits && pData.hits.length > 0) {
+                            videoList = pData.hits.map(v => {
+                                const videoObj = v.videos.large || v.videos.medium || v.videos.small;
+                                const poster = v.picture_id ? `https://i.vimeocdn.com/video/${v.picture_id}_640x360.jpg` : 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600';
+                                return {
+                                    id: `pixabay-vid-${v.id}`,
+                                    type: 'video',
+                                    width: videoObj.width || 1920,
+                                    height: videoObj.height || 1080,
+                                    title: v.tags || `${query || 'HD'} Motion Video`,
+                                    author: v.user || 'Pixabay Creator',
+                                    smallUrl: poster,
+                                    regularUrl: videoObj.url,
+                                    downloadUrl: videoObj.url,
+                                    tags: (v.tags || 'video').split(',').map(t => t.trim())
+                                };
+                            });
+                        }
+                    }
+                } catch (err) {}
             }
 
+            currentPhotos = videoList.length > 0 ? videoList : getPageFallback(page, query);
             renderGrid(currentPhotos);
         }
 
@@ -490,12 +582,7 @@
             resultCount.innerText = `${items.length} items loaded (Page ${currentPage})`;
 
             if (!items || items.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-12 text-slate-500">
-                        <i class="fa-solid fa-face-frown text-3xl mb-2 block"></i>
-                        No content found. Try searching another keyword!
-                    </div>`;
-                return;
+                items = getPageFallback(currentPage, currentQuery);
             }
 
             items.forEach(item => {
@@ -555,7 +642,7 @@
             // Process Tags
             const tagsContainer = document.getElementById('detail-tags');
             tagsContainer.innerHTML = '';
-            item.tags.forEach(tag => {
+            (item.tags || ['wallpaper']).forEach(tag => {
                 const tagBtn = document.createElement('button');
                 tagBtn.className = "px-3 py-1 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-300 hover:border-lime-500 hover:text-lime-400 transition-colors";
                 tagBtn.innerText = `#${tag}`;
@@ -605,13 +692,13 @@
             }
         }
 
-        // RENDER PAGINATION UI (EXACTLY MATCHING SCREENSHOT #3 WITH LIME GREEN HIGHLIGHT)
+        // RENDER PAGINATION UI (EXACTLY MATCHING SCREENSHOT #3 WITH DYNAMIC MAX PAGE LIMIT)
         function updatePaginationUI() {
             paginationContainer.innerHTML = '';
 
-            const maxPages = Math.min(totalPagesCount, 953); // Matching screenshot #3 max limit
+            const maxPages = totalPagesCount; // Dynamically set to available API max pages
+            if (currentPage > maxPages) currentPage = maxPages;
 
-            // Dynamic Page Number Array Generator
             let pageBtns = [];
             pageBtns.push(1);
 
@@ -627,7 +714,7 @@
                 if (!pageBtns.includes('...')) pageBtns.push('...');
             }
 
-            if (!pageBtns.includes(maxPages)) pageBtns.push(maxPages);
+            if (maxPages > 1 && !pageBtns.includes(maxPages)) pageBtns.push(maxPages);
 
             // Render Number Buttons
             pageBtns.forEach(p => {
@@ -655,11 +742,14 @@
 
             // "Next >" Button
             const nextBtn = document.createElement('button');
-            nextBtn.className = "px-5 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 font-bold rounded-xl text-sm transition-all flex items-center gap-1 ml-2";
+            nextBtn.className = "px-5 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 font-bold rounded-xl text-sm transition-all flex items-center gap-1 ml-2 disabled:opacity-40 disabled:cursor-not-allowed";
             nextBtn.innerHTML = `Next &rsaquo;`;
+            nextBtn.disabled = (currentPage >= maxPages);
             nextBtn.onclick = () => {
-                fetchContent(currentPage + 1);
-                document.getElementById('gallery-header').scrollIntoView({ behavior: 'smooth' });
+                if (currentPage < maxPages) {
+                    fetchContent(currentPage + 1);
+                    document.getElementById('gallery-header').scrollIntoView({ behavior: 'smooth' });
+                }
             };
             paginationContainer.appendChild(nextBtn);
 

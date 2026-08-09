@@ -60,6 +60,10 @@
                     <button onclick="showPage('about')" class="hover:text-indigo-400 transition-colors">About Us</button>
                     <button onclick="showPage('contact')" class="hover:text-indigo-400 transition-colors">Contact</button>
                     <button onclick="showPage('privacy')" class="hover:text-indigo-400 transition-colors">Privacy Policy</button>
+                    <!-- Settings Button to update API key if needed -->
+                    <button onclick="promptNewApiKey()" title="API Key Settings" class="text-slate-400 hover:text-yellow-400 transition-colors text-xs bg-slate-800 border border-slate-700 px-2.5 py-1 rounded-lg">
+                        <i class="fa-solid fa-key text-yellow-400"></i> API Key
+                    </button>
                 </nav>
 
                 <!-- Mobile Menu Button -->
@@ -77,8 +81,16 @@
             <button onclick="showPage('about'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-indigo-400">About Us</button>
             <button onclick="showPage('contact'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-indigo-400">Contact</button>
             <button onclick="showPage('privacy'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-indigo-400">Privacy Policy</button>
+            <button onclick="promptNewApiKey(); toggleMobileMenu();" class="block w-full text-left py-2 text-yellow-400 hover:text-yellow-300">Update API Key</button>
         </div>
     </header>
+
+    <!-- API RATE LIMIT FALLBACK ALERT BANNER (Shows only if API 403 limit occurs) -->
+    <div id="rate-limit-banner" class="hidden bg-amber-950/90 border-b border-amber-800/80 text-amber-200 px-4 py-2.5 text-xs text-center flex items-center justify-center gap-2">
+        <i class="fa-solid fa-circle-info text-amber-400 text-sm"></i>
+        <span>Unsplash API Hourly Limit (50 req/hr) reached. Showing <strong>Backup HD Curated Gallery</strong>.</span>
+        <button onclick="promptNewApiKey()" class="underline font-semibold hover:text-white ml-2">Change Key</button>
+    </div>
 
     <!-- MAIN CONTENT AREA -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -292,8 +304,96 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // UNSPLASH API CONFIGURATION
-        const UNSPLASH_ACCESS_KEY = 'ucUZBN7390KPdpxu_ZejBtf5EBLqn7qvyhbilpSi5k4';
+        // API CONFIGURATION
+        let UNSPLASH_ACCESS_KEY = localStorage.getItem('flex_api_key') || 'ucUZBN7390KPdpxu_ZejBtf5EBLqn7qvyhbilpSi5k4';
+
+        // High Quality Curated Fallback Collection (Never breaks even if 403 / 429 limit is reached)
+        const CURATED_BACKUP_WALLPAPERS = [
+            {
+                id: "curated-1",
+                width: 3840,
+                height: 2160,
+                alt_description: "Futuristic Cyberpunk Neon Cityscape 4K Wallpaper",
+                user: { name: "Flex Wallpaper", username: "nethumnimsara" },
+                urls: {
+                    small: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600&auto=format&fit=crop&q=80",
+                    regular: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1920&auto=format&fit=crop&q=85",
+                    full: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=3840&auto=format&fit=crop&q=85",
+                    raw: "https://images.unsplash.com/photo-1519501025264-65ba15a82390"
+                },
+                tags: [{title: "cyberpunk"}, {title: "neon"}, {title: "city"}, {title: "4k desktop"}]
+            },
+            {
+                id: "curated-2",
+                width: 3840,
+                height: 2160,
+                alt_description: "Majestic Mountain Peak Landscape Sunset",
+                user: { name: "Flex Wallpaper", username: "nethumnimsara" },
+                urls: {
+                    small: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&auto=format&fit=crop&q=80",
+                    regular: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&auto=format&fit=crop&q=85",
+                    full: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=3840&auto=format&fit=crop&q=85",
+                    raw: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b"
+                },
+                tags: [{title: "nature"}, {title: "mountains"}, {title: "sunset"}, {title: "desktop"}]
+            },
+            {
+                id: "curated-3",
+                width: 3840,
+                height: 2160,
+                alt_description: "Abstract Fluid Gradient Waves 4K HD",
+                user: { name: "Flex Wallpaper", username: "nethumnimsara" },
+                urls: {
+                    small: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&auto=format&fit=crop&q=80",
+                    regular: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=1920&auto=format&fit=crop&q=85",
+                    full: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=3840&auto=format&fit=crop&q=85",
+                    raw: "https://images.unsplash.com/photo-1541701494587-cb58502866ab"
+                },
+                tags: [{title: "abstract"}, {title: "art"}, {title: "waves"}, {title: "minimalist"}]
+            },
+            {
+                id: "curated-4",
+                width: 2160,
+                height: 3840,
+                alt_description: "Minimalist Forest Misty Pine Trees Mobile",
+                user: { name: "Flex Wallpaper", username: "nethumnimsara" },
+                urls: {
+                    small: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&auto=format&fit=crop&q=80",
+                    regular: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&auto=format&fit=crop&q=85",
+                    full: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=3840&auto=format&fit=crop&q=85",
+                    raw: "https://images.unsplash.com/photo-1448375240586-882707db888b"
+                },
+                tags: [{title: "forest"}, {title: "mobile"}, {title: "nature"}, {title: "trees"}]
+            },
+            {
+                id: "curated-5",
+                width: 3840,
+                height: 2160,
+                alt_description: "Deep Space Nebula & Galaxy Starfield",
+                user: { name: "Flex Wallpaper", username: "nethumnimsara" },
+                urls: {
+                    small: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=600&auto=format&fit=crop&q=80",
+                    regular: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=1920&auto=format&fit=crop&q=85",
+                    full: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=3840&auto=format&fit=crop&q=85",
+                    raw: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86"
+                },
+                tags: [{title: "space"}, {title: "galaxy"}, {title: "4k desktop"}, {title: "dark"}]
+            },
+            {
+                id: "curated-6",
+                width: 3840,
+                height: 2160,
+                alt_description: "Supercar Luxury Automotive Dark Aesthetic",
+                user: { name: "Flex Wallpaper", username: "nethumnimsara" },
+                urls: {
+                    small: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&auto=format&fit=crop&q=80",
+                    regular: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&auto=format&fit=crop&q=85",
+                    full: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=3840&auto=format&fit=crop&q=85",
+                    raw: "https://images.unsplash.com/photo-1503376780353-7e6692767b70"
+                },
+                tags: [{title: "cars"}, {title: "porsche"}, {title: "desktop"}, {title: "dark"}]
+            }
+        ];
 
         // Memory State
         let currentPhotos = [];
@@ -308,11 +408,29 @@
         const resultCount = document.getElementById('result-count');
         const currentPageNum = document.getElementById('current-page-num');
         const prevPageBtn = document.getElementById('prev-page-btn');
+        const rateLimitBanner = document.getElementById('rate-limit-banner');
 
         // Initial Load
         document.addEventListener('DOMContentLoaded', () => {
             fetchPopularWallpapers(1);
         });
+
+        // Prompt user to update API Key if needed
+        function promptNewApiKey() {
+            const key = prompt("Enter your Unsplash API Access Key (leave empty to reset to default):", UNSPLASH_ACCESS_KEY);
+            if (key !== null) {
+                if (key.trim() === '') {
+                    localStorage.removeItem('flex_api_key');
+                    UNSPLASH_ACCESS_KEY = 'ucUZBN7390KPdpxu_ZejBtf5EBLqn7qvyhbilpSi5k4';
+                } else {
+                    localStorage.setItem('flex_api_key', key.trim());
+                    UNSPLASH_ACCESS_KEY = key.trim();
+                }
+                rateLimitBanner.classList.add('hidden');
+                alert("API Key updated successfully! Refreshing gallery...");
+                fetchPopularWallpapers(1);
+            }
+        }
 
         // Toggle Navigation Views
         function showPage(pageId) {
@@ -347,25 +465,26 @@
                 const res = await fetch(`https://api.unsplash.com/photos?page=${page}&per_page=28&order_by=popular&client_id=${UNSPLASH_ACCESS_KEY}`);
 
                 if (!res.ok) {
-                    if (res.status === 429) {
-                        throw new Error("Unsplash API Rate Limit Exceeded (50 requests/hour limit reached). Please try again after a few minutes.");
+                    if (res.status === 403 || res.status === 429) {
+                        rateLimitBanner.classList.remove('hidden');
+                        console.warn("Unsplash Rate Limit Exceeded (403/429). Loading Backup Curated Gallery.");
+                        currentPhotos = CURATED_BACKUP_WALLPAPERS;
+                        renderWallpapers(currentPhotos);
+                        return;
                     } else {
                         throw new Error(`API Error (${res.status}): ${res.statusText}`);
                     }
                 }
 
+                rateLimitBanner.classList.add('hidden');
                 const data = await res.json();
-                currentPhotos = Array.isArray(data) ? data : [];
+                currentPhotos = Array.isArray(data) ? data : CURATED_BACKUP_WALLPAPERS;
                 renderWallpapers(currentPhotos);
             } catch (error) {
-                console.error("Error fetching wallpapers:", error);
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-12 px-4 bg-slate-900 border border-slate-800 rounded-2xl space-y-3">
-                        <i class="fa-solid fa-triangle-exclamation text-yellow-400 text-3xl"></i>
-                        <p class="text-slate-200 font-semibold">${error.message || 'Failed to load wallpapers.'}</p>
-                        <p class="text-xs text-slate-500">Unsplash Free API limit is 50 requests/hour. Please try again shortly.</p>
-                        <button onclick="fetchPopularWallpapers(1)" class="mt-2 text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl transition-colors">Retry</button>
-                    </div>`;
+                console.error("Error fetching wallpapers, using backup gallery:", error);
+                rateLimitBanner.classList.remove('hidden');
+                currentPhotos = CURATED_BACKUP_WALLPAPERS;
+                renderWallpapers(currentPhotos);
             } finally {
                 showSpinner(false);
             }
@@ -388,27 +507,30 @@
                 const res = await fetch(`https://api.unsplash.com/search/photos?page=${page}&per_page=28&query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}`);
 
                 if (!res.ok) {
-                    if (res.status === 429) {
-                        throw new Error("API Rate Limit Exceeded (50 requests/hour limit reached). Please wait a few minutes before searching again.");
-                    } else if (res.status === 403 || res.status === 401) {
-                        throw new Error("API Key issue or blocked request. Please verify your API Key.");
+                    if (res.status === 403 || res.status === 429) {
+                        rateLimitBanner.classList.remove('hidden');
+                        // Filter backup wallpapers by tag if query matches
+                        const filteredBackup = CURATED_BACKUP_WALLPAPERS.filter(p => 
+                            p.alt_description.toLowerCase().includes(query.toLowerCase()) || 
+                            p.tags.some(t => t.title.toLowerCase().includes(query.toLowerCase()))
+                        );
+                        currentPhotos = filteredBackup.length > 0 ? filteredBackup : CURATED_BACKUP_WALLPAPERS;
+                        renderWallpapers(currentPhotos);
+                        return;
                     } else {
                         throw new Error(`API Error (${res.status}): ${res.statusText}`);
                     }
                 }
 
+                rateLimitBanner.classList.add('hidden');
                 const data = await res.json();
                 currentPhotos = data.results || [];
                 renderWallpapers(currentPhotos);
             } catch (error) {
-                console.error("Error searching wallpapers:", error);
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-12 px-4 bg-slate-900 border border-slate-800 rounded-2xl space-y-3">
-                        <i class="fa-solid fa-triangle-exclamation text-yellow-400 text-3xl"></i>
-                        <p class="text-slate-200 font-semibold">${error.message || 'Error loading search results.'}</p>
-                        <p class="text-xs text-slate-500">If you searched multiple times, Unsplash Free API hourly limit (50 req/hr) might be reached.</p>
-                        <button onclick="showHome()" class="mt-2 text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl transition-colors">Back to Popular</button>
-                    </div>`;
+                console.error("Search error, switching to backup:", error);
+                rateLimitBanner.classList.remove('hidden');
+                currentPhotos = CURATED_BACKUP_WALLPAPERS;
+                renderWallpapers(currentPhotos);
             } finally {
                 showSpinner(false);
             }
@@ -546,7 +668,7 @@
             downloadBtn.disabled = true;
 
             try {
-                // High Quality 4K/2K Optimized Stream (~1.5MB instead of 25MB) for 10x Instant Speed
+                // High Quality 4K/2K Optimized Stream (~1.5MB instead of 25MB) for Instant Speed
                 const fastDownloadUrl = selectedPhoto.urls.raw 
                     ? `${selectedPhoto.urls.raw}&w=2560&q=85&fm=jpg` 
                     : selectedPhoto.urls.regular;

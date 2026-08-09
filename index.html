@@ -78,7 +78,7 @@
         <!-- Mobile Dropdown Navigation -->
         <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-4 space-y-2 text-sm font-medium">
             <button onclick="switchContentType('photos'); toggleMobileMenu();" class="block w-full text-left py-2 text-lime-400 font-bold">📷 Wallpapers</button>
-            <button onclick="switchContentType('videos'); toggleMobileMenu();" class="block w-full text-left py-2 text-amber-400 font-bold">🎬 Video Wallpapers</button>
+            <button onclick="switchContentType('videos'); toggleMobileMenu();" class="block w-full text-left py-2 text-amber-400 font-bold">🎬 Videos</button>
             <button onclick="searchQuery('desktop'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-indigo-400">Desktop</button>
             <button onclick="searchQuery('mobile'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-indigo-400">Mobile</button>
             <button onclick="showPage('about'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-indigo-400">About Us</button>
@@ -218,7 +218,7 @@
                 <h2 class="text-xl font-bold text-white pt-2">Key Features</h2>
                 <ul class="list-disc list-inside space-y-2 text-slate-400">
                     <li>Triple-API Integration (Pexels + Pixabay + Unsplash Engine)</li>
-                    <li>HD Video Wallpapers & Motion Backgrounds Section</li>
+                    <li>HD Videos & Motion Backgrounds Section</li>
                     <li>Lime-Green Highlight Pagination & Dynamic Page Navigation</li>
                     <li>Instant High-Speed Direct Downloads</li>
                     <li>Fully Responsive Design for All Devices</li>
@@ -315,7 +315,7 @@
             fetchContent(1);
         });
 
-        // Switch Mode Between Photos and Video Wallpapers
+        // Switch Mode Between Photos and Videos
         function switchContentType(type) {
             currentContentType = type;
             currentPage = 1;
@@ -328,8 +328,8 @@
             if (type === 'videos') {
                 btnVideos.className = "text-amber-400 font-bold transition-colors flex items-center gap-1.5";
                 btnPhotos.className = "hover:text-lime-400 text-slate-300 transition-colors flex items-center gap-1.5";
-                galleryTitle.innerText = "Popular Video Wallpapers";
-                document.getElementById('hero-heading').innerText = "Discover Ultra HD Video Wallpapers";
+                galleryTitle.innerText = "Popular Videos";
+                document.getElementById('hero-heading').innerText = "Discover Ultra HD Videos";
                 document.getElementById('hero-subheading').innerText = "High motion animated video backgrounds for desktop and mobile screens.";
             } else {
                 btnPhotos.className = "text-lime-400 font-bold transition-colors flex items-center gap-1.5";
@@ -510,12 +510,12 @@
                                 type: 'video',
                                 width: v.width,
                                 height: v.height,
-                                title: `${query || 'Motion'} Video Wallpaper`,
+                                title: `${query || 'Motion'} Video`,
                                 author: v.user.name,
                                 smallUrl: v.image,
                                 regularUrl: hdFile ? hdFile.link : '',
                                 downloadUrl: hdFile ? hdFile.link : '',
-                                tags: [(query || 'video wallpaper').toLowerCase(), 'mp4']
+                                tags: [(query || 'video').toLowerCase(), 'mp4']
                             };
                         });
                     }

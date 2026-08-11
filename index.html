@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <title>Flex Wallpaper - Best Free 4K & HD Desktop Backgrounds & Videos</title>
-    <meta name="description" content="Discover and download high-quality 4K, HD wallpapers, background images, and stock videos for free on Flex Wallpaper.">
+    <title>FlexGen Wallpapers - Best Free 4K & HD Desktop Backgrounds, Videos & AI Art</title>
+    <meta name="description" content="Discover and download high-quality 4K, HD wallpapers, background images, and stock videos for free on FlexGen Wallpapers.">
     <meta name="google-site-verification" content="awKs7Msj_NeJZLY-qvJYOPkEbbHBhDbTch23fVDVd-U" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Browser Tab Favicon (Flash Logo) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <!-- Browser Tab Favicon (Exact FG Logo) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%233b82f6'/><text x='50%' y='68%' font-size='52' font-weight='900' font-family='system-ui, sans-serif' fill='white' text-anchor='middle'>FG</text></svg>">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,11 +20,11 @@
             theme: {
                 extend: {
                     colors: {
-                        limeBrand: '#84cc16', // Lime Green matching Screenshot #3
-                        brand: {
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
+                        limeBrand: '#84cc16',
+                        fgBlue: {
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
                         }
                     }
                 }
@@ -35,37 +35,65 @@
         .image-card:hover .overlay {
             opacity: 1;
         }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-lime-500 selection:text-black">
 
     <!-- HEADER / NAVIGATION BAR -->
-    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- Logo with Flash Icon -->
-                <a href="#" onclick="showHome(event)" class="flex items-center gap-2 group">
-                    <div class="p-2 bg-gradient-to-tr from-amber-500 to-indigo-600 rounded-lg group-hover:scale-105 transition-transform">
-                        <i class="fa-solid fa-bolt text-yellow-300 text-lg"></i>
+                
+                <!-- Logo: FlexGen Wallpapers (Matching FG Icon) -->
+                <a href="#" onclick="showHome(event)" class="flex items-center gap-2.5 group">
+                    <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-black text-xl tracking-tighter shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-all">
+                        FG
                     </div>
-                    <span class="text-xl font-extrabold bg-gradient-to-r from-yellow-300 via-white to-indigo-400 bg-clip-text text-transparent">
-                        FlexWallpaper
+                    <span class="text-xl font-extrabold tracking-tight text-white group-hover:text-blue-400 transition-colors">
+                        FlexGen <span class="text-blue-500 font-bold">Wallpapers</span>
                     </span>
                 </a>
 
                 <!-- Desktop Navigation Links -->
-                <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
-                    <button id="nav-photos" onclick="switchContentType('photos')" class="text-lime-400 font-bold transition-colors flex items-center gap-1.5">
-                        <i class="fa-solid fa-image"></i> Wallpapers
+                <nav class="hidden md:flex items-center space-x-5 text-sm font-medium">
+                    <button id="nav-recent" onclick="navigateCategory('recent')" class="hover:text-blue-400 text-slate-300 transition-colors">
+                        <i class="fa-solid fa-clock text-blue-400"></i> Recent
                     </button>
-                    <button id="nav-videos" onclick="switchContentType('videos')" class="hover:text-lime-400 text-slate-300 transition-colors flex items-center gap-1.5">
+                    <button id="nav-popular" onclick="navigateCategory('popular')" class="text-lime-400 font-bold transition-colors">
+                        <i class="fa-solid fa-fire text-amber-400"></i> Popular
+                    </button>
+                    <button id="nav-featured" onclick="navigateCategory('featured')" class="hover:text-blue-400 text-slate-300 transition-colors">
+                        <i class="fa-solid fa-star text-yellow-400"></i> Featured
+                    </button>
+                    <button id="nav-random" onclick="navigateCategory('random')" class="hover:text-blue-400 text-slate-300 transition-colors">
+                        <i class="fa-solid fa-shuffle text-indigo-400"></i> Random
+                    </button>
+                    <button id="nav-collections" onclick="showCollectionsView()" class="hover:text-blue-400 text-slate-300 transition-colors">
+                        <i class="fa-solid fa-layer-group text-emerald-400"></i> Collections
+                    </button>
+                    <button id="nav-videos" onclick="switchContentType('videos')" class="hover:text-amber-400 text-slate-300 transition-colors">
                         <i class="fa-solid fa-video text-amber-400"></i> Videos
                     </button>
-                    <button onclick="searchQuery('desktop')" class="hover:text-indigo-400 transition-colors">Desktop</button>
-                    <button onclick="searchQuery('mobile')" class="hover:text-indigo-400 transition-colors">Mobile</button>
-                    <button onclick="showPage('about')" class="hover:text-indigo-400 transition-colors">About Us</button>
-                    <button onclick="showPage('contact')" class="hover:text-indigo-400 transition-colors">Contact</button>
-                    <button onclick="showPage('privacy')" class="hover:text-indigo-400 transition-colors">Privacy Policy</button>
+                    
+                    <div class="h-4 w-px bg-slate-800 mx-1"></div>
+
+                    <button onclick="showPage('about')" class="hover:text-blue-400 text-slate-400 transition-colors text-xs">About Us</button>
+                    <button onclick="showPage('contact')" class="hover:text-blue-400 text-slate-400 transition-colors text-xs">Contact</button>
+                    <button onclick="showPage('privacy')" class="hover:text-blue-400 text-slate-400 transition-colors text-xs">Privacy</button>
                 </nav>
 
                 <!-- Mobile Menu Button -->
@@ -77,13 +105,16 @@
 
         <!-- Mobile Dropdown Navigation -->
         <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-4 space-y-2 text-sm font-medium">
-            <button onclick="switchContentType('photos'); toggleMobileMenu();" class="block w-full text-left py-2 text-lime-400 font-bold">📷 Wallpapers</button>
+            <button onclick="navigateCategory('recent'); toggleMobileMenu();" class="block w-full text-left py-2 text-blue-400 font-bold">⏱️ Recent</button>
+            <button onclick="navigateCategory('popular'); toggleMobileMenu();" class="block w-full text-left py-2 text-lime-400 font-bold">🔥 Popular</button>
+            <button onclick="navigateCategory('featured'); toggleMobileMenu();" class="block w-full text-left py-2 text-yellow-400 font-bold">⭐ Featured</button>
+            <button onclick="navigateCategory('random'); toggleMobileMenu();" class="block w-full text-left py-2 text-indigo-400 font-bold">🔀 Random</button>
+            <button onclick="showCollectionsView(); toggleMobileMenu();" class="block w-full text-left py-2 text-emerald-400 font-bold">📂 Collections</button>
             <button onclick="switchContentType('videos'); toggleMobileMenu();" class="block w-full text-left py-2 text-amber-400 font-bold">🎬 Videos</button>
-            <button onclick="searchQuery('desktop'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-indigo-400">Desktop</button>
-            <button onclick="searchQuery('mobile'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-indigo-400">Mobile</button>
-            <button onclick="showPage('about'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-indigo-400">About Us</button>
-            <button onclick="showPage('contact'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-indigo-400">Contact</button>
-            <button onclick="showPage('privacy'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-indigo-400">Privacy Policy</button>
+            <hr class="border-slate-800 my-2">
+            <button onclick="showPage('about'); toggleMobileMenu();" class="block w-full text-left py-1 text-slate-400">About Us</button>
+            <button onclick="showPage('contact'); toggleMobileMenu();" class="block w-full text-left py-1 text-slate-400">Contact</button>
+            <button onclick="showPage('privacy'); toggleMobileMenu();" class="block w-full text-left py-1 text-slate-400">Privacy Policy</button>
         </div>
     </header>
 
@@ -94,57 +125,129 @@
         <section id="page-home" class="space-y-8">
             <!-- Hero Search Section -->
             <div class="text-center max-w-3xl mx-auto py-8 space-y-4">
-                <h1 id="hero-heading" class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
-                    Discover Ultra HD & 4K Wallpapers
+                <h1 id="hero-heading" class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                    Discover Ultra HD & 4K <span class="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">FlexGen Wallpapers</span>
                 </h1>
                 <p id="hero-subheading" class="text-slate-400 text-sm sm:text-base">
-                    Unlimited high resolution wallpapers & video backgrounds curated from creator communities worldwide.
+                    Unlimited high resolution wallpapers, AI art backgrounds & videos curated from creator communities.
                 </p>
 
                 <!-- Search Form -->
                 <form onsubmit="handleSearch(event)" class="relative max-w-xl mx-auto pt-4">
                     <div class="relative">
-                        <input type="text" id="search-input" placeholder="Search wallpapers or videos (e.g. nature, anime, 4k)..." 
-                            class="w-full pl-12 pr-28 py-3.5 bg-slate-900 border border-slate-800 rounded-2xl focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent text-white placeholder-slate-500 shadow-xl text-sm transition-all">
+                        <input type="text" id="search-input" placeholder="Search wallpapers or videos (e.g. nature, anime, 4k, dark)..." 
+                            class="w-full pl-12 pr-28 py-3.5 bg-slate-900 border border-slate-800 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-500 shadow-2xl text-sm transition-all">
                         <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
-                        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-lime-500 hover:bg-lime-400 text-slate-950 font-bold px-5 py-2 rounded-xl text-sm transition-colors flex items-center gap-1.5 shadow-lg">
-                            <i class="fa-solid fa-bolt text-xs text-black"></i> Search
+                        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2 rounded-xl text-sm transition-colors flex items-center gap-1.5 shadow-lg shadow-blue-600/30">
+                            <i class="fa-solid fa-bolt text-xs text-yellow-300"></i> Search
                         </button>
                     </div>
                 </form>
 
                 <!-- Quick Tags Bar -->
                 <div class="flex flex-wrap items-center justify-center gap-2 pt-2 text-xs">
-                    <span class="text-slate-500 font-medium">Trending:</span>
+                    <span class="text-slate-500 font-medium">Trending Tags:</span>
                     <button onclick="searchQuery('nature')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-full text-slate-300 transition-colors">Nature</button>
                     <button onclick="searchQuery('4k desktop')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-full text-slate-300 transition-colors">4K Desktop</button>
                     <button onclick="searchQuery('cyberpunk')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-full text-slate-300 transition-colors">Cyberpunk</button>
+                    <button onclick="searchQuery('anime')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-full text-slate-300 transition-colors">Anime</button>
                     <button onclick="searchQuery('abstract')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-full text-slate-300 transition-colors">Abstract</button>
                     <button onclick="searchQuery('mobile wallpaper')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-full text-slate-300 transition-colors">Mobile</button>
-                    <button onclick="searchQuery('minimalist')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-full text-slate-300 transition-colors">Minimalist</button>
+                    <button onclick="searchQuery('cars')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-full text-slate-300 transition-colors">Cars</button>
                 </div>
             </div>
 
-            <!-- Current Search Title -->
+            <!-- Current Section Header -->
             <div id="gallery-header" class="flex items-center justify-between border-b border-slate-800 pb-4">
-                <h2 id="gallery-title" class="text-xl font-bold text-white">Popular Wallpapers</h2>
+                <h2 id="gallery-title" class="text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-fire text-amber-400"></i> Popular Wallpapers
+                </h2>
                 <span id="result-count" class="text-xs text-slate-500"></span>
             </div>
 
             <!-- Loading Spinner -->
             <div id="loading-spinner" class="hidden text-center py-20">
-                <i class="fa-solid fa-circle-notch fa-spin text-4xl text-lime-400"></i>
-                <p class="text-slate-400 text-sm mt-3">Fetching high quality content...</p>
+                <i class="fa-solid fa-circle-notch fa-spin text-4xl text-blue-500"></i>
+                <p class="text-slate-400 text-sm mt-3">Fetching FlexGen wallpapers...</p>
             </div>
 
-            <!-- Wallpapers & Videos Grid -->
+            <!-- DYNAMIC AI CONTENT SECTION -->
+            <!-- AI_CONTENT_START -->
             <div id="wallpaper-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Wallpapers & Videos loaded dynamically -->
+                <!-- Wallpapers & Videos rendered dynamically via JS -->
+            </div>
+            <!-- AI_CONTENT_END -->
+
+            <!-- PAGINATION CONTROLS (LIME GREEN ACTIVE BUTTON STYLE) -->
+            <div id="pagination-container" class="flex items-center justify-center gap-2 pt-10 pb-6 border-t border-slate-800/80">
+                <!-- Pagination buttons rendered dynamically -->
+            </div>
+        </section>
+
+
+        <!-- ================= PAGE: COLLECTIONS ================= -->
+        <section id="page-collections" class="hidden space-y-8">
+            <div class="border-b border-slate-800 pb-4">
+                <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-emerald-400"></i> Curated Collections
+                </h1>
+                <p class="text-slate-400 text-sm mt-1">Explore hand-picked 4K wallpaper categories on FlexGen Wallpapers.</p>
             </div>
 
-            <!-- PAGINATION CONTROLS (MATCHING SCREENSHOT #3 UI) -->
-            <div id="pagination-container" class="flex items-center justify-center gap-2 pt-10 pb-6 border-t border-slate-800/80">
-                <!-- Generated dynamically matching Image #3 style -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Collection Card 1 -->
+                <div onclick="searchQuery('cyberpunk')" class="group relative h-48 rounded-2xl overflow-hidden cursor-pointer border border-slate-800 shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600&auto=format&fit=crop&q=80" alt="Cyberpunk" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-end p-5">
+                        <h3 class="text-lg font-extrabold text-white">Cyberpunk & Neon</h3>
+                        <p class="text-xs text-slate-300">Futuristic cityscapes & sci-fi aesthetics</p>
+                    </div>
+                </div>
+
+                <!-- Collection Card 2 -->
+                <div onclick="searchQuery('nature')" class="group relative h-48 rounded-2xl overflow-hidden cursor-pointer border border-slate-800 shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&auto=format&fit=crop&q=80" alt="Nature" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-end p-5">
+                        <h3 class="text-lg font-extrabold text-white">Nature & Landscapes</h3>
+                        <p class="text-xs text-slate-300">Mountains, oceans, sunsets & forests</p>
+                    </div>
+                </div>
+
+                <!-- Collection Card 3 -->
+                <div onclick="searchQuery('anime')" class="group relative h-48 rounded-2xl overflow-hidden cursor-pointer border border-slate-800 shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80" alt="Anime" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-end p-5">
+                        <h3 class="text-lg font-extrabold text-white">Anime & Fantasy</h3>
+                        <p class="text-xs text-slate-300">Artistic skies, characters & fantasy art</p>
+                    </div>
+                </div>
+
+                <!-- Collection Card 4 -->
+                <div onclick="searchQuery('space')" class="group relative h-48 rounded-2xl overflow-hidden cursor-pointer border border-slate-800 shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=600&auto=format&fit=crop&q=80" alt="Space" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-end p-5">
+                        <h3 class="text-lg font-extrabold text-white">Space & Cosmos</h3>
+                        <p class="text-xs text-slate-300">Galaxies, nebulas & deep space 4K</p>
+                    </div>
+                </div>
+
+                <!-- Collection Card 5 -->
+                <div onclick="searchQuery('cars')" class="group relative h-48 rounded-2xl overflow-hidden cursor-pointer border border-slate-800 shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&auto=format&fit=crop&q=80" alt="Cars" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-end p-5">
+                        <h3 class="text-lg font-extrabold text-white">Cars & Supercars</h3>
+                        <p class="text-xs text-slate-300">Dark automotive aesthetics & speed</p>
+                    </div>
+                </div>
+
+                <!-- Collection Card 6 -->
+                <div onclick="searchQuery('abstract')" class="group relative h-48 rounded-2xl overflow-hidden cursor-pointer border border-slate-800 shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&auto=format&fit=crop&q=80" alt="Abstract" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-end p-5">
+                        <h3 class="text-lg font-extrabold text-white">Abstract & Minimalist</h3>
+                        <p class="text-xs text-slate-300">Fluid gradients, 3D renders & geometry</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -193,10 +296,10 @@
 
                     <!-- Auto Download Button -->
                     <div class="space-y-3 pt-6 border-t border-slate-800">
-                        <button id="download-btn-raw" onclick="triggerAutoDownload()" class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-lime-500 to-lime-600 hover:from-lime-400 hover:to-lime-500 text-slate-950 font-bold py-3.5 px-4 rounded-xl shadow-lg transition-all text-sm">
+                        <button id="download-btn-raw" onclick="triggerAutoDownload()" class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-blue-600/30 transition-all text-sm">
                             <i class="fa-solid fa-download"></i> <span id="download-btn-text">Download Ultra HD File</span>
                         </button>
-                        <p class="text-[11px] text-center text-slate-500">Free auto download provided under License.</p>
+                        <p class="text-[11px] text-center text-slate-500">Free download under FlexGen Wallpapers License.</p>
                     </div>
                 </div>
             </div>
@@ -205,23 +308,24 @@
 
         <!-- ================= PAGE: ABOUT US ================= -->
         <section id="page-about" class="hidden max-w-3xl mx-auto space-y-6 py-6">
-            <h1 class="text-3xl font-bold text-white flex items-center gap-2">
-                <i class="fa-solid fa-bolt text-yellow-400"></i> About FlexWallpaper
-            </h1>
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-black text-xl">FG</div>
+                <h1 class="text-3xl font-bold text-white">About FlexGen Wallpapers</h1>
+            </div>
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4 text-slate-300 leading-relaxed">
                 <p>
-                    Welcome to <strong class="text-white">FlexWallpaper</strong>, your ultimate destination for high-quality, high-resolution desktop, mobile wallpapers, and HD video backgrounds.
+                    Welcome to <strong class="text-white">FlexGen Wallpapers</strong>, your primary destination for high-resolution 4K desktop wallpapers, mobile backgrounds, and motion video wallpapers.
                 </p>
                 <p>
-                    Our platform combines multiple creator APIs including Pexels, Pixabay, and Unsplash to bring you millions of HD and 4K wallpapers completely free.
+                    FlexGen Wallpapers combines multiple creator APIs and AI art generation engines to deliver millions of free, high-speed downloadable visuals.
                 </p>
-                <h2 class="text-xl font-bold text-white pt-2">Key Features</h2>
+                <h2 class="text-xl font-bold text-white pt-2">Platform Features</h2>
                 <ul class="list-disc list-inside space-y-2 text-slate-400">
-                    <li>Triple-API Integration (Pexels + Pixabay + Unsplash Engine)</li>
-                    <li>HD Videos & Motion Backgrounds Section</li>
-                    <li>Lime-Green Highlight Pagination & Dynamic Page Navigation</li>
-                    <li>Instant High-Speed Direct Downloads</li>
-                    <li>Fully Responsive Design for All Devices</li>
+                    <li>Triple-Engine API Integration (Pexels + Pixabay + Unsplash)</li>
+                    <li>HD Motion Video Wallpapers & Animated Backgrounds</li>
+                    <li>Curated Collections & Category Browsing (Recent, Popular, Featured, Random)</li>
+                    <li>Instant High-Speed Auto Downloads</li>
+                    <li>100% Fully Responsive Layout for GitHub Pages Hosting</li>
                 </ul>
             </div>
         </section>
@@ -230,22 +334,22 @@
         <!-- ================= PAGE: CONTACT ================= -->
         <section id="page-contact" class="hidden max-w-2xl mx-auto space-y-6 py-6">
             <h1 class="text-3xl font-bold text-white text-center">Contact Us</h1>
-            <p class="text-slate-400 text-center text-sm">Have questions, feedback, or business inquiries? Drop us a message below.</p>
+            <p class="text-slate-400 text-center text-sm">Have questions, feedback, or business inquiries? Contact FlexGen Wallpapers team below.</p>
 
             <form onsubmit="handleContactSubmit(event)" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4 shadow-xl">
                 <div>
                     <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Name</label>
-                    <input type="text" required placeholder="Your full name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-lime-500">
+                    <input type="text" required placeholder="Your full name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Email Address</label>
-                    <input type="email" required placeholder="name@example.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-lime-500">
+                    <input type="email" required placeholder="name@example.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Message</label>
-                    <textarea rows="4" required placeholder="Type your message here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-lime-500"></textarea>
+                    <textarea rows="4" required placeholder="Type your message here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
                 </div>
-                <button type="submit" class="w-full bg-lime-500 hover:bg-lime-400 text-slate-950 font-bold py-3 rounded-xl transition-colors text-sm">
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-colors text-sm shadow-lg shadow-blue-600/30">
                     Send Message
                 </button>
             </form>
@@ -256,9 +360,9 @@
         <section id="page-privacy" class="hidden max-w-3xl mx-auto space-y-6 py-6">
             <h1 class="text-3xl font-bold text-white">Privacy Policy</h1>
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4 text-slate-300 text-sm leading-relaxed">
-                <p>At FlexWallpaper, accessible from our web app, one of our main priorities is the privacy of our visitors.</p>
+                <p>At FlexGen Wallpapers, accessible from our web app, user privacy is our priority.</p>
                 <h2 class="text-lg font-bold text-white pt-2">1. Third-Party APIs</h2>
-                <p>FlexWallpaper utilizes Pexels, Pixabay, and Unsplash APIs to serve wallpapers and videos directly from cloud servers.</p>
+                <p>FlexGen Wallpapers utilizes Pexels, Pixabay, and Unsplash APIs to serve wallpapers and videos directly from cloud servers.</p>
             </div>
         </section>
 
@@ -267,13 +371,17 @@
     <!-- FOOTER -->
     <footer class="border-t border-slate-800 bg-slate-900 py-6 mt-12 text-center text-xs text-slate-500">
         <div class="max-w-7xl mx-auto px-4 space-y-3">
+            <div class="flex items-center justify-center gap-2 mb-2">
+                <div class="w-6 h-6 bg-blue-600 rounded-md flex items-center justify-center text-white font-black text-xs">FG</div>
+                <span class="font-bold text-slate-300">FlexGen Wallpapers</span>
+            </div>
             <div class="flex justify-center space-x-6 text-slate-400">
                 <button onclick="showHome()" class="hover:text-white transition-colors">Home</button>
                 <button onclick="showPage('about')" class="hover:text-white transition-colors">About Us</button>
                 <button onclick="showPage('contact')" class="hover:text-white transition-colors">Contact</button>
                 <button onclick="showPage('privacy')" class="hover:text-white transition-colors">Privacy Policy</button>
             </div>
-            <p>&copy; 2026 FlexWallpaper. Powered by Nethum Nimsara.</p>
+            <p>&copy; 2026 FlexGen Wallpapers. Powered by Nethum Nimsara.</p>
         </div>
     </footer>
 
@@ -285,23 +393,24 @@
         const PIXABAY_ACCESS_KEY = '57081493-c856a33101ebc46a77cc3a2e2';
         const UNSPLASH_ACCESS_KEY = 'ucUZBN7390KPdpxu_ZejBtf5EBLqn7qvyhbilpSi5k4';
 
-        // Expanded Infinite Backup Database
+        // Internal Fallback Database
         const BACKUP_DATABASE = [
-            { id: "b1", width: 3840, height: 2160, title: "Futuristic Cyberpunk Neon Cityscape 4K", author: "Flex Collection", smallUrl: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=3840&auto=format&fit=crop&q=85", tags: ["cyberpunk", "neon"] },
-            { id: "b2", width: 3840, height: 2160, title: "Majestic Mountain Peak Landscape Sunset", author: "Flex Collection", smallUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=3840&auto=format&fit=crop&q=85", tags: ["nature", "mountains"] },
-            { id: "b3", width: 3840, height: 2160, title: "Abstract Fluid Gradient Waves 4K HD", author: "Flex Collection", smallUrl: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=3840&auto=format&fit=crop&q=85", tags: ["abstract"] },
-            { id: "b4", width: 2160, height: 3840, title: "Minimalist Forest Misty Pine Trees Mobile", author: "Flex Collection", smallUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=3840&auto=format&fit=crop&q=85", tags: ["forest", "mobile"] },
-            { id: "b5", width: 3840, height: 2160, title: "Deep Space Cosmos Nebula & Starfield", author: "Flex Collection", smallUrl: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=3840&auto=format&fit=crop&q=85", tags: ["space", "4k"] },
-            { id: "b6", width: 3840, height: 2160, title: "Supercar Luxury Porsche Dark Aesthetic", author: "Flex Collection", smallUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=3840&auto=format&fit=crop&q=85", tags: ["cars", "dark"] }
+            { id: "b1", width: 3840, height: 2160, title: "Futuristic Cyberpunk Neon Cityscape 4K", author: "FlexGen Collection", smallUrl: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=3840&auto=format&fit=crop&q=85", tags: ["cyberpunk", "neon"] },
+            { id: "b2", width: 3840, height: 2160, title: "Majestic Mountain Peak Landscape Sunset", author: "FlexGen Collection", smallUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=3840&auto=format&fit=crop&q=85", tags: ["nature", "mountains"] },
+            { id: "b3", width: 3840, height: 2160, title: "Abstract Fluid Gradient Waves 4K HD", author: "FlexGen Collection", smallUrl: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=3840&auto=format&fit=crop&q=85", tags: ["abstract"] },
+            { id: "b4", width: 2160, height: 3840, title: "Minimalist Forest Misty Pine Trees Mobile", author: "FlexGen Collection", smallUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=3840&auto=format&fit=crop&q=85", tags: ["forest", "mobile"] },
+            { id: "b5", width: 3840, height: 2160, title: "Deep Space Cosmos Nebula & Starfield", author: "FlexGen Collection", smallUrl: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=3840&auto=format&fit=crop&q=85", tags: ["space", "4k"] },
+            { id: "b6", width: 3840, height: 2160, title: "Supercar Luxury Porsche Dark Aesthetic", author: "FlexGen Collection", smallUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&auto=format&fit=crop&q=80", regularUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&auto=format&fit=crop&q=85", downloadUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=3840&auto=format&fit=crop&q=85", tags: ["cars", "dark"] }
         ];
 
-        // App Mode State: 'photos' or 'videos'
-        let currentContentType = 'photos';
+        // State Variables
+        let currentContentType = 'photos'; // 'photos' or 'videos'
+        let currentCategory = 'popular'; // 'popular', 'recent', 'featured', 'random'
         let currentPhotos = [];
         let selectedItem = null;
         let currentPage = 1;
         let currentQuery = '';
-        let totalPagesCount = 500; // Exact max available pages
+        let totalPagesCount = 500;
 
         // DOM Elements
         const grid = document.getElementById('wallpaper-grid');
@@ -314,6 +423,38 @@
         document.addEventListener('DOMContentLoaded', () => {
             fetchContent(1);
         });
+
+        // Switch Navigation Category Links (Recent, Popular, Featured, Random)
+        function navigateCategory(category) {
+            currentCategory = category;
+            currentContentType = 'photos';
+            currentPage = 1;
+            currentQuery = '';
+            document.getElementById('search-input').value = '';
+
+            // Update Header Nav Styles
+            ['recent', 'popular', 'featured', 'random'].forEach(c => {
+                const navEl = document.getElementById(`nav-${c}`);
+                if (navEl) {
+                    if (c === category) {
+                        navEl.className = "text-lime-400 font-bold transition-colors";
+                    } else {
+                        navEl.className = "hover:text-blue-400 text-slate-300 transition-colors";
+                    }
+                }
+            });
+
+            const titleMap = {
+                recent: '<i class="fa-solid fa-clock text-blue-400"></i> Recent Wallpapers',
+                popular: '<i class="fa-solid fa-fire text-amber-400"></i> Popular Wallpapers',
+                featured: '<i class="fa-solid fa-star text-yellow-400"></i> Featured Wallpapers',
+                random: '<i class="fa-solid fa-shuffle text-indigo-400"></i> Random Wallpapers'
+            };
+
+            galleryTitle.innerHTML = titleMap[category] || titleMap.popular;
+            showPage('home');
+            fetchContent(1);
+        }
 
         // Switch Mode Between Photos and Videos
         function switchContentType(type) {
@@ -328,24 +469,29 @@
             if (type === 'videos') {
                 btnVideos.className = "text-amber-400 font-bold transition-colors flex items-center gap-1.5";
                 btnPhotos.className = "hover:text-lime-400 text-slate-300 transition-colors flex items-center gap-1.5";
-                galleryTitle.innerText = "Popular Videos";
-                document.getElementById('hero-heading').innerText = "Discover Ultra HD Videos";
+                galleryTitle.innerHTML = '<i class="fa-solid fa-video text-amber-400"></i> Popular Video Wallpapers';
+                document.getElementById('hero-heading').innerHTML = 'Discover Ultra HD <span class="bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent">Videos</span>';
                 document.getElementById('hero-subheading').innerText = "High motion animated video backgrounds for desktop and mobile screens.";
             } else {
                 btnPhotos.className = "text-lime-400 font-bold transition-colors flex items-center gap-1.5";
                 btnVideos.className = "hover:text-amber-400 text-slate-300 transition-colors flex items-center gap-1.5";
-                galleryTitle.innerText = "Popular Wallpapers";
-                document.getElementById('hero-heading').innerText = "Discover Ultra HD & 4K Wallpapers";
-                document.getElementById('hero-subheading').innerText = "High resolution wallpapers curated from creator communities worldwide.";
+                galleryTitle.innerHTML = '<i class="fa-solid fa-fire text-amber-400"></i> Popular Wallpapers';
+                document.getElementById('hero-heading').innerHTML = 'Discover Ultra HD & 4K <span class="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">FlexGen Wallpapers</span>';
+                document.getElementById('hero-subheading').innerText = "Unlimited high resolution wallpapers & video backgrounds curated from creator communities worldwide.";
             }
 
             showPage('home');
             fetchContent(1);
         }
 
-        // Toggle Views
+        // Show Collections View
+        function showCollectionsView() {
+            showPage('collections');
+        }
+
+        // Toggle Single Page Navigation
         function showPage(pageId) {
-            const pages = ['home', 'download', 'about', 'contact', 'privacy'];
+            const pages = ['home', 'collections', 'download', 'about', 'contact', 'privacy'];
             pages.forEach(p => {
                 const el = document.getElementById(`page-${p}`);
                 if (el) el.classList.add('hidden');
@@ -365,7 +511,7 @@
             fetchContent(1);
         }
 
-        // Fallback Generator
+        // Internal Fallback Generator
         function getPageFallback(page, query = '') {
             let list = BACKUP_DATABASE;
             if (query) {
@@ -380,7 +526,7 @@
             return rotated.map(item => ({ ...item, type: currentContentType === 'videos' ? 'video' : 'photo' }));
         }
 
-        // Fetch Photos or Videos
+        // Fetch Content Handler
         async function fetchContent(page = 1) {
             showSpinner(true);
             currentPage = page;
@@ -395,15 +541,14 @@
             showSpinner(false);
         }
 
-        // Fetch Photos (Triple API Engine: Pexels -> Pixabay -> Unsplash -> Internal Engine)
+        // Fetch Photos (Triple API Automation Engine: Pexels -> Pixabay -> Unsplash -> Internal Engine)
         async function fetchPhotos(page, query = '') {
             let photosList = [];
 
             // 1. Try Pexels API
             try {
-                let url = query 
-                    ? `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&page=${page}&per_page=24`
-                    : `https://api.pexels.com/v1/curated?page=${page}&per_page=24`;
+                let pexelsParam = query ? `search?query=${encodeURIComponent(query)}` : (currentCategory === 'recent' ? 'search?query=latest' : 'curated');
+                let url = `https://api.pexels.com/v1/${pexelsParam}&page=${page}&per_page=24`;
 
                 const res = await fetch(url, { headers: { Authorization: PEXELS_ACCESS_KEY } });
                 if (res.ok) {
@@ -415,7 +560,7 @@
                             type: 'photo',
                             width: p.width,
                             height: p.height,
-                            title: p.alt || `${query || 'HD'} Wallpaper`,
+                            title: p.alt || `${query || currentCategory} Wallpaper`,
                             author: p.photographer,
                             smallUrl: p.src.large,
                             regularUrl: p.src.large2x || p.src.original,
@@ -429,9 +574,10 @@
             // 2. Try Pixabay API if Pexels returned no items
             if (photosList.length === 0) {
                 try {
+                    let orderParam = currentCategory === 'recent' ? 'latest' : 'popular';
                     let pixUrl = query 
                         ? `https://pixabay.com/api/?key=${PIXABAY_ACCESS_KEY}&q=${encodeURIComponent(query)}&page=${page}&per_page=24&image_type=photo&safesearch=true`
-                        : `https://pixabay.com/api/?key=${PIXABAY_ACCESS_KEY}&page=${page}&per_page=24&image_type=photo&order=popular&safesearch=true`;
+                        : `https://pixabay.com/api/?key=${PIXABAY_ACCESS_KEY}&page=${page}&per_page=24&image_type=photo&order=${orderParam}&safesearch=true`;
 
                     const pixRes = await fetch(pixUrl);
                     if (pixRes.ok) {
@@ -458,9 +604,10 @@
             // 3. Try Unsplash API if Pexels and Pixabay returned no items
             if (photosList.length === 0) {
                 try {
+                    let orderParam = currentCategory === 'recent' ? 'latest' : 'popular';
                     let uUrl = query 
                         ? `https://api.unsplash.com/search/photos?page=${page}&per_page=24&query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}`
-                        : `https://api.unsplash.com/photos?page=${page}&per_page=24&order_by=popular&client_id=${UNSPLASH_ACCESS_KEY}`;
+                        : `https://api.unsplash.com/photos?page=${page}&per_page=24&order_by=${orderParam}&client_id=${UNSPLASH_ACCESS_KEY}`;
 
                     const uRes = await fetch(uUrl);
                     if (uRes.ok) {
@@ -510,7 +657,7 @@
                                 type: 'video',
                                 width: v.width,
                                 height: v.height,
-                                title: `${query || 'Motion'} Video`,
+                                title: `${query || 'Motion'} Video Wallpaper`,
                                 author: v.user.name,
                                 smallUrl: v.image,
                                 regularUrl: hdFile ? hdFile.link : '',
@@ -558,12 +705,12 @@
             renderGrid(currentPhotos);
         }
 
-        // Search Query
+        // Search Handler
         function searchQuery(query) {
             showPage('home');
             currentQuery = query;
             document.getElementById('search-input').value = query;
-            galleryTitle.innerText = `Results for "${query}" (${currentContentType === 'videos' ? 'Videos' : 'Wallpapers'})`;
+            galleryTitle.innerHTML = `<i class="fa-solid fa-magnifying-glass text-blue-400"></i> Results for "${query}" (${currentContentType === 'videos' ? 'Videos' : 'Wallpapers'})`;
             fetchContent(1);
         }
 
@@ -584,12 +731,12 @@
 
             items.forEach(item => {
                 const card = document.createElement('div');
-                card.className = "image-card group relative bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-lime-500/10 transition-all duration-300 cursor-pointer flex flex-col justify-between";
+                card.className = "image-card group relative bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-blue-500/10 transition-all duration-300 cursor-pointer flex flex-col justify-between";
                 card.onclick = () => openDownloadPage(item.id);
 
                 const badgeIcon = item.type === 'video' 
                     ? `<span class="bg-amber-500/90 text-slate-950 font-bold px-2 py-0.5 rounded text-[11px] flex items-center gap-1"><i class="fa-solid fa-play"></i> VIDEO</span>`
-                    : `<span class="bg-indigo-600/80 text-white px-2 py-0.5 rounded text-[11px]">${item.width} × ${item.height}</span>`;
+                    : `<span class="bg-blue-600/80 text-white px-2 py-0.5 rounded text-[11px] font-semibold">${item.width} × ${item.height}</span>`;
 
                 card.innerHTML = `
                     <div class="aspect-[16/10] overflow-hidden bg-slate-950 relative">
@@ -607,7 +754,7 @@
             });
         }
 
-        // Open Download / Detail View
+        // Open Detail / Download View
         function openDownloadPage(id) {
             const item = currentPhotos.find(p => p.id === id);
             if (!item) return;
@@ -633,7 +780,7 @@
             document.getElementById('detail-author').innerText = `Uploaded by: ${item.author}`;
             document.getElementById('detail-resolution').innerText = `${item.width} x ${item.height}`;
             
-            document.title = `Download - ${item.title}`;
+            document.title = `Download - ${item.title} | FlexGen Wallpapers`;
             document.getElementById('download-btn-text').innerText = item.type === 'video' ? "Download MP4 Video" : "Download Ultra HD Wallpaper";
 
             // Process Tags
@@ -641,7 +788,7 @@
             tagsContainer.innerHTML = '';
             (item.tags || ['wallpaper']).forEach(tag => {
                 const tagBtn = document.createElement('button');
-                tagBtn.className = "px-3 py-1 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-300 hover:border-lime-500 hover:text-lime-400 transition-colors";
+                tagBtn.className = "px-3 py-1 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-300 hover:border-blue-500 hover:text-blue-400 transition-colors";
                 tagBtn.innerText = `#${tag}`;
                 tagBtn.onclick = () => searchQuery(tag);
                 tagsContainer.appendChild(tagBtn);
@@ -650,7 +797,7 @@
             showPage('download');
         }
 
-        // Auto Download Function
+        // High Speed Direct Auto Download Function
         async function triggerAutoDownload() {
             if (!selectedItem) return;
 
@@ -670,7 +817,7 @@
 
                 const tempLink = document.createElement('a');
                 tempLink.href = blobUrl;
-                tempLink.download = `FlexWallpaper-${selectedItem.id}.${ext}`;
+                tempLink.download = `FlexGenWallpapers-${selectedItem.id}.${ext}`;
                 document.body.appendChild(tempLink);
                 tempLink.click();
                 document.body.removeChild(tempLink);
@@ -689,11 +836,11 @@
             }
         }
 
-        // RENDER PAGINATION UI (EXACTLY MATCHING SCREENSHOT #3 WITH DYNAMIC MAX PAGE LIMIT)
+        // RENDER PAGINATION UI (LIME GREEN ACTIVE BUTTON MATCHING SCREENSHOT #3)
         function updatePaginationUI() {
             paginationContainer.innerHTML = '';
 
-            const maxPages = totalPagesCount; // Dynamically set to available API max pages
+            const maxPages = totalPagesCount;
             if (currentPage > maxPages) currentPage = maxPages;
 
             let pageBtns = [];
@@ -723,7 +870,7 @@
                 } else {
                     const btn = document.createElement('button');
                     if (p === currentPage) {
-                        // LIME GREEN ACTIVE BUTTON (SCREENSHOT #3 STYLE)
+                        // LIME GREEN ACTIVE BUTTON
                         btn.className = "px-5 py-2.5 bg-lime-500 text-slate-950 font-extrabold rounded-xl text-sm shadow-lg shadow-lime-500/20 transition-all scale-105";
                     } else {
                         btn.className = "px-4 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-semibold rounded-xl text-sm transition-all";
@@ -752,8 +899,8 @@
 
             // Update Tab Title
             document.title = currentQuery 
-                ? `Flex Wallpaper - ${currentQuery} (Page ${currentPage})`
-                : `Flex Wallpaper - Page ${currentPage}`;
+                ? `FlexGen Wallpapers - ${currentQuery} (Page ${currentPage})`
+                : `FlexGen Wallpapers - Page ${currentPage}`;
         }
 
         // Helper UI Functions
